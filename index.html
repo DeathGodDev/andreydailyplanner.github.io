@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DailyPlanner</title>
+    
+    <link rel="stylesheet" href="media/styles/main.css">
+    
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/ca534454dc.js"></script>
+    
+</head>
+<body>
+    <div class="button add" title="Добавить новую задачу" onclick="openAddWindow()">
+        <i class="fas fa-plus"></i>
+    </div>
+    <div class="button remove" title="Перетащите сюда задачу, чтобы удалить">
+        <i class="fas fa-trash-alt" id="removingField"></i>
+<!--        <i class="far fa-trash-alt"></i>-->
+    </div>
+    <script src="removingScript.js"></script>
+    <div class="list" id="list">
+        <h2>Здесь вы можете ставить себе задачи</h2>
+        <label draggable="true" id="objective1">
+            <input type="checkbox">
+            <i></i>
+            <span>Lorem ipsum dolor sit.</span>
+        </label>
+        <label draggable="true" id="objective2">
+            <input type="checkbox">
+            <i></i>
+            <span>Lorem ipsum dolor sit.</span>
+        </label>
+        <label draggable="true" id="objective3">
+            <input type="checkbox">
+            <i></i>
+            <span>Lorem ipsum dolor sit.</span>
+        </label>
+        <label draggable="true" id="objective4">
+            <input type="checkbox">
+            <i></i>
+            <span>Lorem ipsum dolor sit.</span>
+        </label>
+        <label draggable="true" id="objective5">
+            <input type="checkbox">
+            <i></i>
+            <span>Lorem ipsum dolor sit.</span>
+        </label>
+    </div>
+    
+    <div class="newEnter" id="addWindow">
+        <input type="button" class="exitButton" value="x" onclick="closeAddWindow()">
+        <label>Введите название задачи</label>
+        <input type="text" id="objectiveName">
+        <input type="button" class="succesButton" id="addButton" value="Создать задачу" onclick="newObjective()">
+    </div>
+    
+    <script>
+        const dragstart = function(event) {
+            objectiveId = event.target.id;
+        };
+        
+        const dragover = function(event) {
+            document.getElementById(objectiveId).parentElement.removeChild(document.getElementById(objectiveId));
+            objectiveId = "";
+        };
+        
+        const trash = document.getElementById("removingField");
+        trash.addEventListener("dragover", dragover);
+        
+        var labels = document.getElementsByTagName("label");
+        Array.from(labels).forEach((element) => {
+            element.addEventListener("dragstart", dragstart)
+        });
+        
+        const addButton = document.getElementById("addButton");
+        addButton.addEventListener("click", function(event){
+            labels = document.getElementsByTagName("label");
+            Array.from(labels).forEach((element) => {
+                element.addEventListener("dragstart", dragstart)
+            });
+        });
+        
+        var objectiveId = "";
+    </script>
+</body>
+</html>
